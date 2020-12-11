@@ -1,25 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-import moment from 'moment';
 import global from '../../styles/global';
+import api from '../../services/api';
+import moment from 'moment';
 
-export default function StudentList() {
+
+interface Student {
+    id: number;
+    student_id: string;
+    firstName: string;
+    phone: string;
+}
+
+export default function TeacherPanel() {
+    const [students, setStudents] = useState<Student[]>([]);
 
     const date = moment().format('MMMM D, YYYY');
 
     const navigation = useNavigation();
 
+    useEffect(() => {
+        api.get('students').then(response => {
+            setStudents(response.data)
+        })
+    }, [])
+
     return (
-        <View style={global.container}>
+        <View style={styles.container}>
             <ScrollView>
 
                 <Text style={global.label}>SEARCH A DATE</Text>
                 <View style={styles.change}>
-                    <TextInput style={global.input} value={date} />
+                    <TextInput style={styles.input} value={date} />
                     <RectButton style={styles.buttonChange} onPress={() => { }}>
                         <Feather name="arrow-right" size={16} color="#fff" />
                     </RectButton>
@@ -27,7 +43,7 @@ export default function StudentList() {
 
                 <Text style={global.label}>SEARCH BY NAME</Text>
                 <View style={styles.change}>
-                    <TextInput style={global.input} value={'Ada Lovelace'}/>
+                    <TextInput style={styles.input} value={'Ada Lovelace'} />
                     <RectButton style={styles.buttonChange} onPress={() => { }}>
                         <Feather name="arrow-right" size={16} color="#fff" />
                     </RectButton>
@@ -35,64 +51,39 @@ export default function StudentList() {
 
                 <Text style={styles.titleTwo}>{date}</Text>
 
+                {students.map(student => {
+                    return (
+                        <View style={styles.student} key={student.id}>
+                            <Text style={styles.studentProperty}>Student ID #</Text>
+                            <Text style={styles.studentValue}>{student.student_id}</Text>
 
-                <View style={styles.student}>
-                    <Text style={styles.studentProperty}>Student ID #</Text>
-                    <Text style={styles.studentValue}>1578962</Text>
+                            <Text style={styles.studentProperty}>Name</Text>
+                            <Text style={styles.studentValue}>{student.firstName}</Text>
 
-                    <Text style={styles.studentProperty}>Name</Text>
-                    <Text style={styles.studentValue}>Ada Lovelace</Text>
-
-                    <Text style={styles.studentProperty}>Status</Text>
-                    <Text style={styles.studentValue}>Present - Hi Teacher, I need help, please</Text>
-                    <TouchableOpacity
-                        style={styles.detailsButton}
-                        onPress={() => { }}
-                    >
-                        <Text style={styles.detailsButtonText}>Contact</Text>
-                        <Feather name="arrow-right" size={16} color="#E02041" />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.student}>
-                    <Text style={styles.studentProperty}>Student ID #</Text>
-                    <Text style={styles.studentValue}>1578962</Text>
-
-                    <Text style={styles.studentProperty}>Name</Text>
-                    <Text style={styles.studentValue}>Ada Lovelace</Text>
-
-                    <Text style={styles.studentProperty}>Status</Text>
-                    <Text style={styles.studentValue}>Present - Hi Teacher, I need help, please</Text>
-                    <TouchableOpacity
-                        style={styles.detailsButton}
-                        onPress={() => { }}
-                    >
-                        <Text style={styles.detailsButtonText}>Contact</Text>
-                        <Feather name="arrow-right" size={16} color="#E02041" />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.student}>
-                    <Text style={styles.studentProperty}>Student ID #</Text>
-                    <Text style={styles.studentValue}>1578962</Text>
-
-                    <Text style={styles.studentProperty}>Name</Text>
-                    <Text style={styles.studentValue}>Ada Lovelace</Text>
-
-                    <Text style={styles.studentProperty}>Status</Text>
-                    <Text style={styles.studentValue}>Present - Hi Teacher, I need help, please</Text>
-                    <TouchableOpacity
-                        style={styles.detailsButton}
-                        onPress={() => { }}
-                    >
-                        <Text style={styles.detailsButtonText}>Contact</Text>
-                        <Feather name="arrow-right" size={16} color="#E02041" />
-                    </TouchableOpacity>
-                </View>
+                            <Text style={styles.studentProperty}>Status</Text>
+                            <Text style={styles.studentValue}>Present - Hi Teacher. I need help, please</Text>
+                            <TouchableOpacity
+                                style={styles.detailsButton}
+                                onPress={() => { }}
+                            >
+                                <Text style={styles.detailsButtonText}>Contact</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                })}               
             </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 24,
+        backgroundColor: '#F9F4FC',
+        borderBottomWidth: 1,
+        borderColor: '#DDE3F0',
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -100,9 +91,21 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
     },
     change: {
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
+        marginBottom: 30,
+    },
+    input: {
+        backgroundColor: '#fff',
+        borderWidth: 1.4,
+        borderColor: '#d3e2e6',
+        borderRadius: 20,
+        height: 56,
+        width: '75%',
+        paddingVertical: 18,
+        paddingHorizontal: 24,
+        textAlignVertical: 'top',
     },
     buttonChange: {
         fontSize: 14,
@@ -110,10 +113,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        width: 70,
-        margin: 5,
-        marginTop: 20,
-        marginBottom: 40,
+        width: '20%',
         backgroundColor: '#D8315B',
     },
     titleTwo: {
@@ -129,6 +129,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: '#FFF',
         marginBottom: 16,
+        borderWidth: 1.4,
+        borderColor: '#d3e2e6',
     },
 
     studentProperty: {
@@ -145,14 +147,18 @@ const styles = StyleSheet.create({
     },
 
     detailsButton: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#E16080',
+        height: 40,
+        borderRadius: 16,
+        // paddingHorizontal: 20,
+        // paddingVertical: 20,
     },
 
     detailsButtonText: {
-        color: '#E02041',
-        fontSize: 15,
+        color: '#FFF',
+        fontSize: 16,
         fontWeight: 'bold',
     }
 

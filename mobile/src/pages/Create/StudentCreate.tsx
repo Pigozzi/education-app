@@ -28,6 +28,8 @@ export default function StudentDetails() {
 
             navigation.navigate('studentLogin');
 
+            // console.log(data)
+
         } catch (err) {
             alert('Error to create a new student')
         }

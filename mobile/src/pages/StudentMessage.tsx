@@ -14,7 +14,7 @@ export default function StudentMessage() {
     }
 
     return (
-        <View style={global.container}>
+        <View style={styles.container}>
             <Text style={styles.title}>THANK YOU...</Text>
             <View style={styles.directionRight}>
                 <Text style={styles.titleDate}>{date}</Text>
@@ -32,6 +32,13 @@ export default function StudentMessage() {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 24,
+        backgroundColor: '#F9F4FC',
+        borderBottomWidth: 1,
+        borderColor: '#DDE3F0',
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
