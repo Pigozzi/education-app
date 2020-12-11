@@ -5,8 +5,8 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import api from '../services/api';
-import global from '../styles/global';
+import api from '../../services/api';
+import global from '../../styles/global';
 
 interface Comment {
     id: number;
@@ -54,9 +54,9 @@ export default function StudentPanel() {
 
             <Text style={styles.title}>HELLO, {firstName.toUpperCase()}</Text>
 
-            <View style={styles.directionCenter}>
+            {/* <View style={styles.directionCenter}>
                 <Text style={styles.titleTwo}>MESSAGE HISTORY </Text>
-            </View>
+            </View> */}
 
             <View style={styles.header}>
                 <Text style={styles.headerText}>DATE</Text>
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#3C91E6'
+        color: '#3C91E6',
+        paddingBottom: 20,
     },
     titleTwo: {
         fontSize: 22,

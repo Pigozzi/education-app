@@ -5,19 +5,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const { Navigator, Screen } = createStackNavigator();
 
+import Header from './components/Header';
+
 import StudentLogin from './pages/Login/StudentLogin';
 import TeacherLogin from './pages/Login/TeacherLogin';
 
 import StudentCreate from './pages/Create/StudentCreate';
 import TeacherCreate from './pages/Create/TeacherCreate';
 
-import StudentPanel from './pages/StudentPanel';
+import StudentPanel from './pages/Panel/StudentPanel';
+import TeacherPanel from './pages/Panel/TeacherPanel';
 
 import StudentForm from './pages/StudentForm';
 import StudentMessage from './pages/StudentMessage';
-
-import StudentList from './pages/StudentList';
-
 
 export default function Routes() {
     return (
@@ -49,6 +49,18 @@ export default function Routes() {
                 <Screen
                     name="studentPanel"
                     component={StudentPanel}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Message History" />
+                    }}
+                />
+                <Screen
+                    name="teacherPanel"
+                    component={TeacherPanel}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Student Interactions" />
+                    }}
                 />
 
                 {/* OTHER ROUTES */}
@@ -57,10 +69,6 @@ export default function Routes() {
                     component={StudentForm}
                 />
                 <Screen
-                    name="studentList"
-                    component={StudentList}
-                />
-                <Screen 
                     name="studentMessage"
                     component={StudentMessage}
                 />

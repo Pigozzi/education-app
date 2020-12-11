@@ -21,7 +21,7 @@ export default function StudentDetails() {
 
         // try {
         //     await api.post('teacher', data);
-        //     navigation.navigate('teacherPanel');
+            navigation.navigate('teacherPanel');
         // } catch (err) {
         //     alert('Email or password invalid');
         // }
