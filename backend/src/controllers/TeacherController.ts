@@ -4,13 +4,25 @@ import knex from '../database/connection';
 class teacherController {
     async index(request: Request, response: Response) {
         const teacher = await knex('teacher')
+            .select('id')
             .select('email')
             .select('firstName')
-            .select('lastName')
-            .select('permission')
-            .select('verification');
+            .select('verification')
+            .where('verification', true);
 
         return response.json(teacher);
+    }
+
+    async verification(request: Request, response: Response) {
+        const teacherVerification = await knex('teacher')
+            .select('id')
+            .select('id')
+            .select('email')
+            .select('firstName')
+            .select('verification')
+            .where('verification', false);;
+
+        return response.json(teacherVerification);
     }
 
     async create(request: Request, response: Response) {

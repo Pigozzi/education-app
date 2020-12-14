@@ -15,6 +15,10 @@ import TeacherCreate from './pages/Create/TeacherCreate';
 
 import StudentPanel from './pages/Panel/StudentPanel';
 import TeacherPanel from './pages/Panel/TeacherPanel';
+import StudentInteraction from './pages/Panel/StudentInteraction';
+import AcceptTeacher from './pages/Panel/AcceptTeacher';
+import StudentList from './pages/Panel/StudentList';
+import TeacherList from './pages/Panel/TeacherList';
 
 import StudentForm from './pages/StudentForm';
 import StudentMessage from './pages/StudentMessage';
@@ -54,12 +58,49 @@ export default function Routes() {
                         header: () => <Header title="Message History" />
                     }}
                 />
+
                 <Screen
                     name="teacherPanel"
                     component={TeacherPanel}
                     options={{
                         headerShown: true,
+                        header: () => <Header title="Panel List" />
+                    }}
+                />
+
+                <Screen
+                    name="studentInteractions"
+                    component={StudentInteraction}
+                    options={{
+                        headerShown: true,
                         header: () => <Header title="Student Interactions" />
+                    }}
+                />
+
+                <Screen
+                    name="acceptTeacher"
+                    component={AcceptTeacher}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="New Teacher List" />
+                    }}
+                />
+
+                <Screen
+                    name="studentList"
+                    component={StudentList}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Student List" />
+                    }}
+                />
+
+                <Screen
+                    name="teacherList"
+                    component={TeacherList}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Teacher List" />
                     }}
                 />
 
@@ -67,10 +108,6 @@ export default function Routes() {
                 <Screen
                     name="studentForm"
                     component={StudentForm}
-                    options={{
-                        headerShown: true,
-                        header: () => <Header title="Student Notification" />
-                    }}
                 />
                 <Screen
                     name="studentMessage"

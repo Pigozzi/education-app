@@ -52,8 +52,18 @@ export default function StudentPanel() {
         BackHandler.exitApp();
     }
 
-    function handleStudentForm() {
-        navigation.navigate('studentForm');
+    async function handleStudentForm() {
+
+        try {
+            const response = await api.post('sessions', { student_id })
+
+            await AsyncStorage.setItem('student_id', student_id);
+            await AsyncStorage.setItem('firstName', response.data.firstName);
+
+            navigation.navigate('studentForm');
+        } catch (err) {
+            alert(err)
+        }
     }
 
     return (

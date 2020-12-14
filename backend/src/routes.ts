@@ -19,6 +19,7 @@ routes.post('/sessions', sessionController.create);
 
 routes.get('/teachers', teacherController.index);
 routes.post('/teachers', teacherController.create);
+routes.get('/verification', teacherController.verification);
 
 routes.get('/profile', profileController.index)
 

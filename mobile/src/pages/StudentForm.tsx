@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
@@ -9,21 +9,38 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StudentForm() {
 
+    const [firstName, setFirstName] = useState('')
+    const [student_id, setStudentId] = useState('');
+
     const presence = true;
     const [comment, setComment] = useState('');
 
-    // AsyncStorage.getItem('student_id')
-    // AsyncStorage.getItem('name');
-
     const date = moment().format('MMMM Do YYYY');
     const navigation = useNavigation();
+
+    const load = async () => {
+        try {
+            let name = await AsyncStorage.getItem("firstName")
+            let id = await AsyncStorage.getItem("student_id")
+
+            if (id !== null) { setStudentId(id) }
+            if (name !== null) { setFirstName(name) }
+
+        } catch (err) {
+            alert(err)
+        }
+    }
+
+    useEffect(() => {
+        load();
+    }, [])
 
     async function handleSubmitLearning() {
 
         try {
             await api.post('comments', presence, {
                 headers: {
-                    Authorization: 12345
+                    Authorization: student_id
                 }
             });
             navigation.navigate('studentMessage')
@@ -43,7 +60,7 @@ export default function StudentForm() {
         try {
             await api.post('comments', data, {
                 headers: {
-                    Authorization: 12345
+                    Authorization: student_id
                 }
             });
             navigation.navigate('studentMessage');
@@ -54,7 +71,8 @@ export default function StudentForm() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Good Morning, {}</Text>
+            <Text style={styles.title}>Good Morning,</Text>
+            <Text style={styles.title}>{firstName.toUpperCase()}</Text>
             <View style={styles.directionRight}>
                 <Text style={styles.titleDate}>{date}</Text>
             </View>
@@ -100,6 +118,7 @@ const styles = StyleSheet.create({
     },
     titleDate: {
         fontSize: 16,
+        paddingTop: 10,
         paddingBottom: 30,
     },
     titleTwo: {
