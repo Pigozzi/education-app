@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Linking, StyleSheet, Text, TextInput, View } from 'react-native';
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 import global from '../../styles/global';
@@ -28,6 +28,10 @@ export default function TeacherPanel() {
             setStudents(response.data)
         })
     }, [])
+
+    function openCall(phone: String) {
+        Linking.openURL(`tel:${phone}`)
+    }
 
     return (
         <View style={styles.container}>
@@ -64,13 +68,15 @@ export default function TeacherPanel() {
                             <Text style={styles.studentValue}>Present - Hi Teacher. I need help, please</Text>
                             <TouchableOpacity
                                 style={styles.detailsButton}
-                                onPress={() => { }}
+                                onPress={() => {
+                                    openCall(student.phone)
+                                }}
                             >
                                 <Text style={styles.detailsButtonText}>Contact</Text>
                             </TouchableOpacity>
                         </View>
                     )
-                })}               
+                })}
             </ScrollView>
         </View>
     )

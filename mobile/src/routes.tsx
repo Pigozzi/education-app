@@ -67,6 +67,10 @@ export default function Routes() {
                 <Screen
                     name="studentForm"
                     component={StudentForm}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Student Notification" />
+                    }}
                 />
                 <Screen
                     name="studentMessage"

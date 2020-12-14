@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import api from '../../services/api';
 import global from '../../styles/global';
+import { useNavigation } from '@react-navigation/native';
 
 interface Comment {
     id: number;
@@ -19,6 +20,8 @@ export default function StudentPanel() {
     const [comments, setComments] = useState<Comment[]>([])
     const [firstName, setFirstName] = useState('')
     const [student_id, setStudentId] = useState('');
+
+    const navigation = useNavigation();
 
     const load = async () => {
         try {
@@ -49,14 +52,18 @@ export default function StudentPanel() {
         BackHandler.exitApp();
     }
 
+    function handleStudentForm() {
+        navigation.navigate('studentForm');
+    }
+
     return (
         <View style={global.container}>
 
             <Text style={styles.title}>HELLO, {firstName.toUpperCase()}</Text>
 
-            {/* <View style={styles.directionCenter}>
-                <Text style={styles.titleTwo}>MESSAGE HISTORY </Text>
-            </View> */}
+            <RectButton style={global.buttonChange} onPress={handleStudentForm}>
+                <Text style={global.buttonInputText}>Form</Text>
+            </RectButton>
 
             <View style={styles.header}>
                 <Text style={styles.headerText}>DATE</Text>
