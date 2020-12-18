@@ -20,6 +20,17 @@ export default function AcceptTeacher() {
         })
     }, [])
 
+    async function handleAcceptTeacher(teacher: Object) {
+        try {
+            await api.put('verification', teacher)
+
+            alert('Teacher accepted successfuly')
+
+        } catch (err) {
+            alert(err)
+        }
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -34,7 +45,9 @@ export default function AcceptTeacher() {
                             <Text style={styles.studentValue}>{teacher.email}</Text>
                             <TouchableOpacity
                                 style={styles.detailsButton}
-                                onPress={() => { }}
+                                onPress={() => {
+                                    handleAcceptTeacher(teacher)
+                                }}
                             >
                                 <Text style={styles.detailsButtonText}>Accept</Text>
                             </TouchableOpacity>

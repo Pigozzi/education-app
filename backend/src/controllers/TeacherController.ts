@@ -25,6 +25,32 @@ class teacherController {
         return response.json(teacherVerification);
     }
 
+    async accept(request: Request, response: Response) {
+
+        const { id } = request.body
+
+        const verification = true;
+
+        await knex('teacher').update({
+            verification
+        }).where('id', id);
+
+        return response.status(200).json({ message: "Updated" });
+    }
+
+    async decline(request: Request, response: Response) {
+
+        const { id } = request.body
+
+        const verification = false;
+
+        await knex('teacher').update({
+            verification
+        }).where('id', id);
+
+        return response.status(200).json({ message: "Updated" });
+    }
+
     async create(request: Request, response: Response) {
 
         const { email, firstName, password } = request.body;

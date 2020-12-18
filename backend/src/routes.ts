@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import { celebrate, Joi } from 'celebrate';
+
 import TeacherController from './controllers/TeacherController';
 import StudentController from './controllers/StudentController';
 import CommentsController from './controllers/CommentsController';
@@ -20,11 +22,12 @@ routes.post('/sessions', sessionController.create);
 routes.get('/teachers', teacherController.index);
 routes.post('/teachers', teacherController.create);
 routes.get('/verification', teacherController.verification);
+routes.put('/verification', teacherController.accept);
+routes.put('/verification', teacherController.decline);
 
 routes.get('/profile', profileController.index)
 
 routes.get('/students', studentController.index);
-routes.post('/students', studentController.create);
 routes.get('/students/:id', studentController.show);
 routes.put('/students/:id', studentController.update);
 
@@ -32,5 +35,18 @@ routes.get('/comments', commentsController.index);
 routes.get('/search/:created_at', commentsController.search);
 routes.post('/comments', commentsController.create);
 
+routes.post(
+    '/students',
+    celebrate({
+        body: Joi.object().keys({
+            student_id: Joi.string().min(9).max(9).required(),
+            firstName: Joi.string().required().min(4),
+            phone: Joi.string().required().min(6).max(12)
+        })
+    },{
+        abortEarly: false
+    }),
+    studentController.create
+);
 
 export default routes;  

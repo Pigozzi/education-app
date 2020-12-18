@@ -8,6 +8,7 @@ import global from '../../styles/global';
 import api from '../../services/api';
 import moment from 'moment';
 
+import DatePicker from 'react-native-datepicker';
 
 interface Comment {
     id: number;
@@ -15,7 +16,7 @@ interface Comment {
     firstName: string;
     phone: string;
     comment: string;
-    created_at: Date;
+    created_at: string;
 }
 
 export default function TeacherPanel() {
@@ -24,6 +25,9 @@ export default function TeacherPanel() {
     const [created_at, setCreatedAt] = useState(moment().format('MMMM D, YYYY'));
 
     useEffect(() => {
+        
+        setCreatedAt(moment().format('MMMM D, YYYY'))
+
         api.get('comments').then(response => {
             setStudents(response.data)
         })
@@ -37,7 +41,10 @@ export default function TeacherPanel() {
         return item.firstName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
     })
 
-    async function searchDate() {
+    async function searchDate(created_at: string) {
+
+        setCreatedAt(created_at)
+
         try {
             await api.get(`/search/${created_at}`).then(response => {
                 setStudents(response.data);
@@ -53,10 +60,19 @@ export default function TeacherPanel() {
 
                 <Text style={global.label}>SEARCH A DATE</Text>
                 <View style={styles.change}>
-                    <TextInput style={styles.input} onChangeText={setCreatedAt} value={created_at} />
-                    <RectButton style={styles.buttonChange} onPress={searchDate}>
-                        <Feather name="arrow-right" size={16} color="#fff" />
-                    </RectButton>
+                    <DatePicker
+                        style={styles.inputData}
+                        date={created_at}
+                        mode="date"
+                        showIcon={false}
+                        format="MMMM D, YYYY"
+                        minDate="2020-01-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        onDateChange={(created_at) => (
+                            searchDate(created_at)
+                        )}
+                    />
                 </View>
 
                 <Text style={global.label}>SEARCH BY NAME</Text>
@@ -121,6 +137,10 @@ const styles = StyleSheet.create({
         paddingVertical: 18,
         paddingHorizontal: 24,
         textAlignVertical: 'top',
+    },
+    inputData: {
+        width: '100%',
+
     },
     buttonChange: {
         fontSize: 14,

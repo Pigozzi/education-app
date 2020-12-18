@@ -20,6 +20,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
+    "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-screens": "^2.15.0",
     "react-native-table-component": "^1.2.1",
@@ -30,6 +31,7 @@
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
+    "@types/react-native-datepicker": "^1.7.0",
     "@types/react-native-table-component": "^1.2.0",
     "typescript": "~3.9.5"
   },

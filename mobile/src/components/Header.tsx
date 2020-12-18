@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9f4fc',
         borderBottomWidth: 1,
         borderColor: '#dde3f0',
-        paddingTop: 30,
+        paddingTop: 40,
 
         flexDirection: 'row',
         justifyContent: 'space-between',
