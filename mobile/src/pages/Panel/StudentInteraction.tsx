@@ -9,22 +9,22 @@ import api from '../../services/api';
 import moment from 'moment';
 
 
-interface Student {
+interface Comment {
     id: number;
     student_id: string;
     firstName: string;
     phone: string;
+    comment: string;
+    created_at: Date;
 }
 
 export default function TeacherPanel() {
-    const [students, setStudents] = useState<Student[]>([]);
-
-    const date = moment().format('MMMM D, YYYY');
-
-    const navigation = useNavigation();
+    const [students, setStudents] = useState<Comment[]>([]);
+    const [search, setSearch] = useState('');
+    const [created_at, setCreatedAt] = useState(moment().format('MMMM D, YYYY'));
 
     useEffect(() => {
-        api.get('students').then(response => {
+        api.get('comments').then(response => {
             setStudents(response.data)
         })
     }, [])
@@ -33,8 +33,18 @@ export default function TeacherPanel() {
         Linking.openURL(`tel:${phone}`)
     }
 
-    function handleTeacher() {
-        navigation.navigate('teacherPanel');
+    const filterStudent = students.filter((item) => {
+        return item.firstName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+    })
+
+    async function searchDate() {
+        try {
+            await api.get(`/search/${created_at}`).then(response => {
+                setStudents(response.data);
+            });
+        } catch (err) {
+            alert(err);
+        }
     }
 
     return (
@@ -43,23 +53,18 @@ export default function TeacherPanel() {
 
                 <Text style={global.label}>SEARCH A DATE</Text>
                 <View style={styles.change}>
-                    <TextInput style={styles.input} value={date} />
-                    <RectButton style={styles.buttonChange} onPress={handleTeacher}>
+                    <TextInput style={styles.input} onChangeText={setCreatedAt} value={created_at} />
+                    <RectButton style={styles.buttonChange} onPress={searchDate}>
                         <Feather name="arrow-right" size={16} color="#fff" />
                     </RectButton>
                 </View>
 
                 <Text style={global.label}>SEARCH BY NAME</Text>
-                <View style={styles.change}>
-                    <TextInput style={styles.input} value={'Ada Lovelace'} />
-                    <RectButton style={styles.buttonChange} onPress={() => { }}>
-                        <Feather name="arrow-right" size={16} color="#fff" />
-                    </RectButton>
-                </View>
+                <TextInput style={global.input} onChangeText={setSearch} />
 
-                <Text style={styles.titleTwo}>{date}</Text>
+                <Text style={styles.titleTwo}>{created_at}</Text>
 
-                {students.map(student => {
+                {filterStudent.map(student => {
                     return (
                         <View style={styles.student} key={student.id}>
                             <Text style={styles.studentProperty}>Student ID #</Text>
@@ -68,8 +73,8 @@ export default function TeacherPanel() {
                             <Text style={styles.studentProperty}>Name</Text>
                             <Text style={styles.studentValue}>{student.firstName}</Text>
 
-                            <Text style={styles.studentProperty}>Status</Text>
-                            <Text style={styles.studentValue}>Present - Hi Teacher. I need help, please</Text>
+                            <Text style={styles.studentProperty}>Comment</Text>
+                            <Text style={styles.studentValue}>{student.comment}</Text>
                             <TouchableOpacity
                                 style={styles.detailsButton}
                                 onPress={() => {
@@ -131,7 +136,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#D8315B',
         paddingBottom: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        paddingTop: 10,
     },
 
     student: {
@@ -162,7 +168,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E16080',
         height: 40,
         borderRadius: 12,
-},
+    },
 
     detailsButtonText: {
         color: '#FFF',

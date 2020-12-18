@@ -7,7 +7,7 @@ import global from '../styles/global';
 
 export default function StudentMessage() {
 
-    const date = moment().format('MMMM Do YYYY');
+    const date = moment().format('MMMM D, YYYY');
 
     function exitApp() {
         BackHandler.exitApp();

@@ -15,7 +15,7 @@ export default function StudentForm() {
     const presence = true;
     const [comment, setComment] = useState('');
 
-    const date = moment().format('MMMM Do YYYY');
+    const date = moment().format('MMMM D, YYYY');
     const navigation = useNavigation();
 
     const load = async () => {

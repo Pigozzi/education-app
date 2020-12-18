@@ -29,6 +29,8 @@ routes.get('/students/:id', studentController.show);
 routes.put('/students/:id', studentController.update);
 
 routes.get('/comments', commentsController.index);
+routes.get('/search/:created_at', commentsController.search);
 routes.post('/comments', commentsController.create);
+
 
 export default routes;  

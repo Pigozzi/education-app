@@ -21,20 +21,16 @@ export default function StudentDetails() {
             phone
         }
 
-        console.log(data);
-
         try {
             await api.post('students', data);
 
             navigation.navigate('studentLogin');
 
-            // console.log(data)
-
         } catch (err) {
             alert('Error to create a new student')
         }
     }
-
+    
     return (
         <View style={global.container}>
             <Text style={global.title}>Sign Up</Text>
