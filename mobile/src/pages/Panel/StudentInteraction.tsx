@@ -25,7 +25,7 @@ export default function TeacherPanel() {
     const [created_at, setCreatedAt] = useState(moment().format('MMMM D, YYYY'));
 
     useEffect(() => {
-        
+
         setCreatedAt(moment().format('MMMM D, YYYY'))
 
         api.get('comments').then(response => {
@@ -69,6 +69,7 @@ export default function TeacherPanel() {
                         minDate="2020-01-01"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
+                        customStyles={{ dateInput: { borderWidth: 0 } }}
                         onDateChange={(created_at) => (
                             searchDate(created_at)
                         )}
@@ -139,8 +140,13 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
     },
     inputData: {
+        backgroundColor: '#fff',
+        height: 56,
+        borderWidth: 1.4,
         width: '100%',
-
+        borderColor: '#d3e2e6',
+        borderRadius: 20,
+        justifyContent: 'center',
     },
     buttonChange: {
         fontSize: 14,
