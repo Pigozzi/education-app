@@ -1,8 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Linking, StyleSheet, Text, View } from 'react-native';
+import { Linking, StyleSheet, Text, TextInput, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-import api from '../../services/api';
+import api from '../../../services/api';
+import global from '../../../styles/global';
 
 interface Students {
     id: number;
@@ -12,24 +14,36 @@ interface Students {
 }
 
 export default function StudentList() {
-
     const [students, setStudents] = useState<Students[]>([])
+    const [search, setSearch] = useState('');
 
-    useEffect(() => {
-        api.get('students').then(response => {
-            setStudents(response.data)
-        })
-    }, [])
+    const navigation = useNavigation();
+
+    function navigateToDetail(id: number) {
+        navigation.navigate('editStudent', { id });
+    }
 
     function openCall(phone: String) {
         Linking.openURL(`tel:${phone}`)
     }
 
+    const filterStudent = students.filter((item) => {
+        return item.firstName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+    })
+
+    useEffect(() => {
+        api.get('students').then(response => {
+            setStudents(response.data)
+        })
+    })
+
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.titleTwo}>STUDENT LIST</Text>
-                {students.map(student => {
+                <Text style={global.label}>SEARCH BY NAME</Text>
+                <TextInput style={global.input} onChangeText={setSearch} />
+
+                {filterStudent.map(student => {
                     return (
                         <View style={styles.student} key={student.id}>
                             <Text style={styles.studentProperty}>Student ID #</Text>
@@ -51,7 +65,7 @@ export default function StudentList() {
 
                             <TouchableOpacity
                                 style={styles.detailsButton}
-                                onPress={() => { }}
+                                onPress={() => navigateToDetail(student.id)}
                             >
                                 <Text style={styles.detailsButtonText}>Edit</Text>
                             </TouchableOpacity>

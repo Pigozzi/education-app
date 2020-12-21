@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Linking, StyleSheet, Text, TextInput, View } from 'react-native';
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-import global from '../../styles/global';
-import api from '../../services/api';
+import global from '../../../styles/global';
+import api from '../../../services/api';
 import moment from 'moment';
 
 import DatePicker from 'react-native-datepicker';

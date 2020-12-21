@@ -15,10 +15,14 @@ import TeacherCreate from './pages/Create/TeacherCreate';
 
 import StudentPanel from './pages/Panel/StudentPanel';
 import TeacherPanel from './pages/Panel/TeacherPanel';
-import StudentInteraction from './pages/Panel/StudentInteraction';
-import AcceptTeacher from './pages/Panel/AcceptTeacher';
-import StudentList from './pages/Panel/StudentList';
-import TeacherList from './pages/Panel/TeacherList';
+
+import StudentInteraction from './pages/Panel/Options/StudentInteraction';
+import AcceptTeacher from './pages/Panel/Options/AcceptTeacher';
+import StudentList from './pages/Panel/Options/StudentList';
+import TeacherList from './pages/Panel/Options/TeacherList';
+
+import EditStudent from './pages/Panel/Options/Edit/EditStudent';
+import EditTeacher from './pages/Panel/Options/Edit/EditTeacher';
 
 import StudentForm from './pages/StudentForm';
 import StudentMessage from './pages/StudentMessage';
@@ -101,6 +105,24 @@ export default function Routes() {
                     options={{
                         headerShown: true,
                         header: () => <Header title="Teacher List" />
+                    }}
+                />
+
+                <Screen
+                    name="editStudent"
+                    component={EditStudent}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Edit Student" />
+                    }}
+                />
+
+                <Screen
+                    name="editTeacher"
+                    component={EditStudent}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Edit Student" />
                     }}
                 />
 

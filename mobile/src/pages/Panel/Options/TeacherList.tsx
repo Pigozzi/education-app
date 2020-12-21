@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import api from '../../services/api';
+import api from '../../../services/api';
+import global from '../../../styles/global';
 
 interface Teachers {
     id: number;
@@ -11,8 +12,8 @@ interface Teachers {
 }
 
 export default function TeacherList() {
-
     const [teachers, setTeachers] = useState<Teachers[]>([])
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         api.get('teachers').then(response => {
@@ -20,11 +21,19 @@ export default function TeacherList() {
         })
     }, [])
 
+    const filterTeacher = teachers.filter((item) => {
+        return item.firstName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+    })
+
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.titleTwo}>TEACHER LIST</Text>
-                {teachers.map(teacher => {
+                {/* <Text style={styles.titleTwo}>TEACHER LIST</Text> */}
+
+                <Text style={global.label}>SEARCH BY NAME</Text>
+                <TextInput style={global.input} onChangeText={setSearch} />
+
+                {filterTeacher.map(teacher => {
                     return (
                         <View style={styles.student} key={teacher.id}>
                             <Text style={styles.studentProperty}>Teacher name</Text>

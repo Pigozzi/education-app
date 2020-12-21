@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import api from '../../services/api';
+import api from '../../../services/api';
 
 interface Teachers {
     id: number;
