@@ -11,14 +11,14 @@ interface StudentDetailsRouteParams {
 }
 
 interface Student {
-    student_id: string;
-    firstName: string;
-    phone: string;
+    student_id: number;
+    fullName: string;
+    phone: number;
 }
 
 export default function EditStudent() {
     const [student_id, setStudentId] = useState('');
-    const [firstName, setFirstName] = useState('');
+    const [fullName, setFullName] = useState('');
     const [phone, setPhone] = useState('');
 
     const navigation = useNavigation();
@@ -39,7 +39,7 @@ export default function EditStudent() {
 
         const data = {
             student_id,
-            firstName,
+            fullName,
             phone
         }
 
@@ -59,29 +59,26 @@ export default function EditStudent() {
             {student.map(student => {
                 return (
                     <View key={params.id}>
-                        <Text style={styles.title}>Edit student: {student.firstName}</Text>
+                        <Text style={styles.title}>Edit student: {student.fullName}</Text>
 
                         <Text style={global.label}>STUDENT ID #</Text>
                         <TextInput
                             style={global.input}
-                            value={student_id}
-                            placeholder={student.student_id}
+                            defaultValue={student.student_id.toString()}
                             onChangeText={setStudentId}
                         />
 
                         <Text style={global.label}>FIRST NAME</Text>
                         <TextInput
                             style={global.input}
-                            value={firstName}
-                            placeholder={student.firstName}
-                            onChangeText={setFirstName}
+                            defaultValue={student.fullName}
+                            onChangeText={setFullName}
                         />
 
                         <Text style={global.label}>PHONE NUMBER</Text>
                         <TextInput
                             style={global.input}
-                            value={phone}
-                            placeholder={student.phone}
+                            defaultValue={student.phone.toString()}
                             onChangeText={setPhone}
                         />
 

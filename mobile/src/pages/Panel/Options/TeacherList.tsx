@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -6,7 +7,7 @@ import global from '../../../styles/global';
 
 interface Teachers {
     id: number;
-    name: string;
+    fullName: string;
     email: string;
     verification: boolean;
 }
@@ -15,6 +16,8 @@ export default function TeacherList() {
     const [teachers, setTeachers] = useState<Teachers[]>([])
     const [search, setSearch] = useState('');
 
+    const navigation = useNavigation();
+
     useEffect(() => {
         api.get('teachers').then(response => {
             setTeachers(response.data)
@@ -22,8 +25,12 @@ export default function TeacherList() {
     }, [])
 
     const filterTeacher = teachers.filter((item) => {
-        return item.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+        return item.fullName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
     })
+
+    function navigateToDetail(id: number) {
+        navigation.navigate('editTeacher', { id });
+    }
 
     return (
         <View style={styles.container}>
@@ -37,13 +44,13 @@ export default function TeacherList() {
                     return (
                         <View style={styles.student} key={teacher.id}>
                             <Text style={styles.studentProperty}>Teacher name</Text>
-                            <Text style={styles.studentValue}>{teacher.name}</Text>
+                            <Text style={styles.studentValue}>{teacher.fullName}</Text>
 
                             <Text style={styles.studentProperty}>E-mail</Text>
                             <Text style={styles.studentValue}>{teacher.email}</Text>
                             <TouchableOpacity
                                 style={styles.detailsButton}
-                                onPress={() => { }}
+                                onPress={() => navigateToDetail(teacher.id)}
                             >
                                 <Text style={styles.detailsButtonText}>Edit</Text>
                             </TouchableOpacity>

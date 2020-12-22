@@ -120,10 +120,10 @@ export default function Routes() {
 
                 <Screen
                     name="editTeacher"
-                    component={EditStudent}
+                    component={EditTeacher}
                     options={{
                         headerShown: true,
-                        header: () => <Header title="Edit Student" />
+                        header: () => <Header title="Edit Teacher" />
                     }}
                 />
 

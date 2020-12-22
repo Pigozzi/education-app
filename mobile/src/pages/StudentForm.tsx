@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StudentForm() {
 
-    const [firstName, setFirstName] = useState('')
+    const [fullName, setFullName] = useState('')
     const [student_id, setStudentId] = useState('');
 
     const presence = true;
@@ -20,11 +20,11 @@ export default function StudentForm() {
 
     const load = async () => {
         try {
-            let name = await AsyncStorage.getItem("firstName")
+            let name = await AsyncStorage.getItem("fullName")
             let id = await AsyncStorage.getItem("student_id")
 
             if (id !== null) { setStudentId(id) }
-            if (name !== null) { setFirstName(name) }
+            if (name !== null) { setFullName(name) }
 
         } catch (err) {
             alert(err)
@@ -72,7 +72,7 @@ export default function StudentForm() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Good Morning,</Text>
-            <Text style={styles.title}>{firstName.toUpperCase()}</Text>
+            <Text style={styles.title}>{fullName.toUpperCase()}</Text>
             <View style={styles.directionRight}>
                 <Text style={styles.titleDate}>{date}</Text>
             </View>

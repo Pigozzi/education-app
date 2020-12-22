@@ -8,8 +8,9 @@ import global from '../../styles/global';
 
 export default function StudentDetails() {
     const [student_id, setStudentId] = useState('');
-    const [firstName, setFirstName] = useState('');
+    const [fullName, setFullName] = useState('');
     const [phone, setPhone] = useState('');
+    const [school_id, setSchoolId] = useState('');
 
     const navigation = useNavigation();
 
@@ -17,8 +18,9 @@ export default function StudentDetails() {
 
         const data = {
             student_id,
-            firstName,
-            phone
+            fullName,
+            phone,
+            school_id
         }
 
         try {
@@ -30,7 +32,7 @@ export default function StudentDetails() {
             alert('Error to create a new student')
         }
     }
-    
+
     return (
         <View style={global.container}>
             <Text style={global.title}>Sign Up</Text>
@@ -52,12 +54,20 @@ export default function StudentDetails() {
                 onChangeText={setStudentId}
             />
 
+            <Text style={global.label}>SCHOOL ID #</Text>
+            <TextInput
+                style={global.input}
+                value={school_id}
+                placeholder="Enter Your ID School"
+                onChangeText={setSchoolId}
+            />
+
             <Text style={global.label}>FIRST NAME</Text>
             <TextInput
                 style={global.input}
-                value={firstName}
+                value={fullName}
                 placeholder="Enter Your Name"
-                onChangeText={setFirstName}
+                onChangeText={setFullName}
             />
 
             <Text style={global.label}>PHONE NUMBER</Text>

@@ -9,7 +9,7 @@ import global from '../../../styles/global';
 interface Students {
     id: number;
     student_id: number;
-    firstName: string;
+    fullName: string;
     phone: string;
 }
 
@@ -28,7 +28,7 @@ export default function StudentList() {
     }
 
     const filterStudent = students.filter((item) => {
-        return item.firstName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+        return item.fullName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
     })
 
     useEffect(() => {
@@ -50,7 +50,7 @@ export default function StudentList() {
                             <Text style={styles.studentValue}>{student.student_id}</Text>
 
                             <Text style={styles.studentProperty}>Name</Text>
-                            <Text style={styles.studentValue}>{student.firstName}</Text>
+                            <Text style={styles.studentValue}>{student.fullName}</Text>
 
                             <Text style={styles.studentProperty}>Phone</Text>
                             <TouchableOpacity

@@ -13,7 +13,7 @@ import DatePicker from 'react-native-datepicker';
 interface Comment {
     id: number;
     student_id: string;
-    firstName: string;
+    fullName: string;
     phone: string;
     comment: string;
     created_at: string;
@@ -38,7 +38,7 @@ export default function TeacherPanel() {
     }
 
     const filterStudent = students.filter((item) => {
-        return item.firstName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+        return item.fullName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
     })
 
     async function searchDate(created_at: string) {
@@ -88,7 +88,7 @@ export default function TeacherPanel() {
                             <Text style={styles.studentValue}>{student.student_id}</Text>
 
                             <Text style={styles.studentProperty}>Name</Text>
-                            <Text style={styles.studentValue}>{student.firstName}</Text>
+                            <Text style={styles.studentValue}>{student.fullName}</Text>
 
                             <Text style={styles.studentProperty}>Comment</Text>
                             <Text style={styles.studentValue}>{student.comment}</Text>

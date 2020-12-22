@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton, ScrollView, TextInput } from 'react-native-gesture-handler';
 
@@ -8,7 +8,7 @@ import global from '../../../../styles/global';
 
 export default function EditTeacher() {
     const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
+    const [fullName, setFullName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -17,16 +17,7 @@ export default function EditTeacher() {
     return (
         <View style={global.container}>
             <ScrollView>
-                <Text style={global.title}>Sign Up</Text>
-
-                <View style={global.change}>
-                    <RectButton style={global.buttonChange} onPress={() => navigation.navigate('studentCreate')}>
-                        <Text style={global.buttonInputText}>STUDENT</Text>
-                    </RectButton>
-                    <RectButton style={global.buttonSelected} onPress={() => navigation.navigate('teacherCreate')}>
-                        <Text style={global.buttonInputText}>TEACHER</Text>
-                    </RectButton>
-                </View>
+                <Text style={styles.title}>Edit teacher: "NAME"</Text>
 
                 <Text style={global.label}>TEACHER E-MAIL ADDRESS</Text>
                 <TextInput
@@ -39,9 +30,9 @@ export default function EditTeacher() {
                 <Text style={global.label}>FIRST NAME</Text>
                 <TextInput
                     style={global.input}
-                    value={name}
+                    value={fullName}
                     placeholder="Enter Your Name"
-                    onChangeText={setName}
+                    onChangeText={setFullName}
                 />
 
                 <Text style={global.label}>PASSWORD</Text>
@@ -60,19 +51,20 @@ export default function EditTeacher() {
                     onChangeText={setConfirmPassword}
                 />
 
-                <RectButton style={global.buttonSubmit} onPress={() => {}}>
-                    <Text style={global.buttonTextSubmit}>Continue</Text>
+                <RectButton style={global.buttonSubmit} onPress={() => { }}>
+                    <Text style={global.buttonTextSubmit}>Edit</Text>
                 </RectButton>
-
-                <View style={global.viewSignIn}>
-                    <Text style={global.textSignIn}>
-                        Have an Account?
-                </Text>
-                    <RectButton onPress={() => navigation.navigate('teacherLogin')}>
-                        <Text style={global.textRed}> Sign In</Text>
-                    </RectButton>
-                </View>
             </ScrollView>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        color: '#D8315B',
+        paddingBottom: 20,
+        textAlign: 'center'
+    },
+})

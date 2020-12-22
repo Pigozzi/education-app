@@ -18,18 +18,18 @@ interface Comment {
 
 export default function StudentPanel() {
     const [comments, setComments] = useState<Comment[]>([])
-    const [firstName, setFirstName] = useState('')
+    const [fullName, setFullName] = useState('')
     const [student_id, setStudentId] = useState('');
 
     const navigation = useNavigation();
 
     const load = async () => {
         try {
-            let name = await AsyncStorage.getItem("firstName")
+            let name = await AsyncStorage.getItem("fullName")
             let id = await AsyncStorage.getItem("student_id")
 
             if (id !== null) { setStudentId(id) }
-            if (name !== null) { setFirstName(name) }
+            if (name !== null) { setFullName(name) }
 
         } catch (err) {
             alert(err)
@@ -58,7 +58,7 @@ export default function StudentPanel() {
             const response = await api.post('sessions', { student_id })
 
             await AsyncStorage.setItem('student_id', student_id);
-            await AsyncStorage.setItem('firstName', response.data.firstName);
+            await AsyncStorage.setItem('fullName', response.data.fullName);
 
             navigation.navigate('studentForm');
         } catch (err) {
@@ -69,7 +69,7 @@ export default function StudentPanel() {
     return (
         <View style={global.container}>
 
-            <Text style={styles.title}>HELLO, {firstName.toUpperCase()}</Text>
+            <Text style={styles.title}>HELLO, {fullName.toUpperCase()}</Text>
 
             <RectButton style={global.buttonChange} onPress={handleStudentForm}>
                 <Text style={global.buttonInputText}>Form</Text>

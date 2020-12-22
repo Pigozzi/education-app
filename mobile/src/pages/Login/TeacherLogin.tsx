@@ -20,8 +20,16 @@ export default function StudentDetails() {
         }
 
         try {
-            await api.post('sessionTeacher', data);
-            navigation.navigate('TeacherChoice');
+            const response = await api.post('sessionTeacher', data);
+
+            const verification = response.data.verification;
+
+            if (Boolean(verification) === true) {
+                navigation.navigate('teacherPanel');
+            } else {
+                navigation.navigate('TeacherChoice')
+            }
+
         } catch (err) {
             alert('Email or password invalid');
         }

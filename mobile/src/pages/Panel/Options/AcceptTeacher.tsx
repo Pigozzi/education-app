@@ -5,7 +5,7 @@ import api from '../../../services/api';
 
 interface Teachers {
     id: number;
-    name: string;
+    fullName: string;
     email: string;
     verification: boolean;
 }
@@ -18,7 +18,7 @@ export default function AcceptTeacher() {
         api.get('verification').then(response => {
             setTeachers(response.data)
         })
-    }, [])
+    }, [teachers])
 
     async function handleAcceptTeacher(teacher: Object) {
         try {
@@ -39,7 +39,7 @@ export default function AcceptTeacher() {
                     return (
                         <View style={styles.student} key={teacher.id}>
                             <Text style={styles.studentProperty}>Teacher name</Text>
-                            <Text style={styles.studentValue}>{teacher.name}</Text>
+                            <Text style={styles.studentValue}>{teacher.fullName}</Text>
 
                             <Text style={styles.studentProperty}>E-mail</Text>
                             <Text style={styles.studentValue}>{teacher.email}</Text>
