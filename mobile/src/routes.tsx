@@ -15,6 +15,7 @@ import TeacherCreate from './pages/Create/TeacherCreate';
 
 import StudentPanel from './pages/Panel/StudentPanel';
 import TeacherPanel from './pages/Panel/TeacherPanel';
+import SchoolCreate from './pages/Create/SchoolCreate';
 
 import StudentInteraction from './pages/Panel/Options/StudentInteraction';
 import AcceptTeacher from './pages/Panel/Options/AcceptTeacher';
@@ -134,7 +135,15 @@ export default function Routes() {
                         headerShown: true,
                         header: () => <Header title="Teacher Choice " />
                     }}
+                />
 
+                <Screen 
+                    name="SchoolCreate"
+                    component={SchoolCreate}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Create new School"/>
+                    }}
                 />
 
                 {/* OTHER ROUTES */}

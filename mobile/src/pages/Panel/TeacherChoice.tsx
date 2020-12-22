@@ -12,7 +12,7 @@ export default function TeacherChoise() {
     const navigation = useNavigation();
 
     function handleNewAdministrator() {
-        navigation.navigate('CreateSchool');
+        navigation.navigate('SchoolCreate');
     }
 
     return (
