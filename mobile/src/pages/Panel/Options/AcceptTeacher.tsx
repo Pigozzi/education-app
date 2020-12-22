@@ -18,7 +18,7 @@ export default function AcceptTeacher() {
         api.get('verification').then(response => {
             setTeachers(response.data)
         })
-    }, [teachers])
+    }, [])
 
     async function handleAcceptTeacher(teacher: Object) {
         try {
