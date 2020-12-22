@@ -9,7 +9,7 @@ class commentsControler {
             .select([
                 'comments.*',
                 'students.id',
-                'students.firstName',
+                'students.fullName',
                 'students.phone'
             ]).where('comments.created_at', moment().format('MMMM D, YYYY'))
 
@@ -25,7 +25,7 @@ class commentsControler {
             .select([
                 'comments.*',
                 'students.id',
-                'students.firstName',
+                'students.fullName',
                 'students.phone'
             ]).where('comments.created_at', created_at)
 

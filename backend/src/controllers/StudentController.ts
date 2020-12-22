@@ -10,13 +10,13 @@ class studentController {
 
     async create(request: Request, response: Response) {
         
-        const { student_id, firstName, lastName, phone } = request.body;
+        const { student_id, fullName, phone, school_id } = request.body;
         
         await knex('students').insert({
             student_id,
-            firstName,
-            lastName,
-            phone
+            fullName,
+            phone,
+            school_id
         });
 
         return response.status(200).json({ message: `Successfully, This is your ID ${student_id}`});
@@ -33,12 +33,11 @@ class studentController {
     async update(request: Request, response: Response) {
 
         const { id } = request.params;
-        const { student_id, firstName, lastName, phone } = request.body;
+        const { student_id, fullName, phone } = request.body;
 
         await knex('students').update({
             student_id,
-            firstName,
-            lastName,
+            fullName,
             phone
         }).where('id', id);
 

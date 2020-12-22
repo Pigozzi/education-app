@@ -41,8 +41,9 @@ routes.post(
     celebrate({
         body: Joi.object().keys({
             student_id: Joi.string().min(9).max(9).required(),
-            firstName: Joi.string().required().min(4),
-            phone: Joi.string().required().min(6).max(12)
+            fullName: Joi.string().required().min(4),
+            phone: Joi.string().required().min(6).max(12),
+            school_id: Joi.string().min(6).required()
         })
     },{
         abortEarly: false

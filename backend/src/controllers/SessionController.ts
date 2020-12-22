@@ -11,7 +11,7 @@ class SessionController {
 
         const student = await knex('students')
             .where('student_id', student_id)
-            .select('firstName')
+            .select('fullName')
             .first();
 
         if (!student) {
@@ -30,6 +30,7 @@ class SessionController {
             .select('id')
             .select('email')
             .select('fullName')
+            .select('verification')
             .where('email', email)
             .where('password', password)
             .first();
@@ -38,7 +39,7 @@ class SessionController {
             return response.status(400).json({ error: "TEACHER NOT FOUND" })
         }
 
-        return response.json('student')
+        return response.json(teacher)
     }
 
 }
