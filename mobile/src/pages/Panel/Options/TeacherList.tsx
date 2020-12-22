@@ -6,7 +6,7 @@ import global from '../../../styles/global';
 
 interface Teachers {
     id: number;
-    firstName: string;
+    name: string;
     email: string;
     verification: boolean;
 }
@@ -22,7 +22,7 @@ export default function TeacherList() {
     }, [])
 
     const filterTeacher = teachers.filter((item) => {
-        return item.firstName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+        return item.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
     })
 
     return (
@@ -37,7 +37,7 @@ export default function TeacherList() {
                     return (
                         <View style={styles.student} key={teacher.id}>
                             <Text style={styles.studentProperty}>Teacher name</Text>
-                            <Text style={styles.studentValue}>{teacher.firstName}</Text>
+                            <Text style={styles.studentValue}>{teacher.name}</Text>
 
                             <Text style={styles.studentProperty}>E-mail</Text>
                             <Text style={styles.studentValue}>{teacher.email}</Text>

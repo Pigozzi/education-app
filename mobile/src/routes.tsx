@@ -26,6 +26,7 @@ import EditTeacher from './pages/Panel/Options/Edit/EditTeacher';
 
 import StudentForm from './pages/StudentForm';
 import StudentMessage from './pages/StudentMessage';
+import TeacherChoice from './pages/Panel/TeacherChoice';
 
 export default function Routes() {
     return (
@@ -124,6 +125,16 @@ export default function Routes() {
                         headerShown: true,
                         header: () => <Header title="Edit Student" />
                     }}
+                />
+
+                <Screen
+                    name="TeacherChoice"
+                    component={TeacherChoice}
+                    options={{
+                        headerShown: true,
+                        header: () => <Header title="Teacher Choice " />
+                    }}
+
                 />
 
                 {/* OTHER ROUTES */}

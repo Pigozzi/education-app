@@ -17,7 +17,8 @@ const teacherController = new TeacherController();
 const studentController = new StudentController();
 const commentsController = new CommentsController();
 
-routes.post('/sessions', sessionController.create);
+routes.post('/sessions', sessionController.createSessionStudent);
+routes.post('/sessionTeacher', sessionController.createSessionTeacher);
 
 routes.get('/teachers', teacherController.index);
 routes.post('/teachers', teacherController.create);

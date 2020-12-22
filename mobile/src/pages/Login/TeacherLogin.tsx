@@ -14,17 +14,17 @@ export default function StudentDetails() {
 
     async function handleTeacherLogin() {
 
-        // const data = {
-        //     email,
-        //     password
-        // }
+        const data = {
+            email,
+            password
+        }
 
-        // try {
-        //     await api.post('teacher', data);
-            navigation.navigate('teacherPanel');
-        // } catch (err) {
-        //     alert('Email or password invalid');
-        // }
+        try {
+            await api.post('sessionTeacher', data);
+            navigation.navigate('TeacherChoice');
+        } catch (err) {
+            alert('Email or password invalid');
+        }
 
     }
 

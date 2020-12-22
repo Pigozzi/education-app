@@ -8,7 +8,7 @@ import global from '../../../../styles/global';
 
 export default function EditTeacher() {
     const [email, setEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -39,9 +39,9 @@ export default function EditTeacher() {
                 <Text style={global.label}>FIRST NAME</Text>
                 <TextInput
                     style={global.input}
-                    value={firstName}
+                    value={name}
                     placeholder="Enter Your Name"
-                    onChangeText={setFirstName}
+                    onChangeText={setName}
                 />
 
                 <Text style={global.label}>PASSWORD</Text>

@@ -8,23 +8,24 @@ import global from '../../styles/global';
 
 export default function TeacherCreate() {
     const [email, setEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [password, setPassword] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [passwordVerification, setPasswordVerification] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const navigation = useNavigation();
 
     async function handleSubmit() {
 
-        if(password != confirmPassword) {
+        if(passwordVerification != confirmPassword) {
             alert('Password incorrent')
             return;
         }
 
         const data = {
             email,
-            firstName,
-            password,
+            fullName,
+            passwordVerification,
+            confirmPassword
         }
 
         try {
@@ -61,17 +62,17 @@ export default function TeacherCreate() {
                 <Text style={global.label}>FIRST NAME</Text>
                 <TextInput
                     style={global.input}
-                    value={firstName}
-                    placeholder="Enter Your Name"
-                    onChangeText={setFirstName}
+                    value={fullName}
+                    placeholder="Enter Your fullName"
+                    onChangeText={setFullName}
                 />
 
                 <Text style={global.label}>PASSWORD</Text>
                 <TextInput
                     style={global.input}
-                    value={password}
+                    value={passwordVerification}
                     placeholder="Enter Your Password"
-                    onChangeText={setPassword}
+                    onChangeText={setPasswordVerification}
                 />
 
                 <Text style={global.label}>CONFIRM PASSWORD</Text>

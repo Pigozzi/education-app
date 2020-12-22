@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 
+import crypto from 'crypto';
+
 class SessionController {
 
-    async create(request: Request, response: Response) {
+    async createSessionStudent(request: Request, response: Response) {
 
         const { student_id } = request.body;
 
@@ -12,12 +14,31 @@ class SessionController {
             .select('firstName')
             .first();
 
-        if(!student) {
+        if (!student) {
             return response.status(400).json({ error: "STUDENT NOT FOUND" })
         }
 
         return response.json(student)
 
+    }
+
+    async createSessionTeacher(request: Request, response: Response) {
+
+        const { email, password } = request.body;
+
+        const teacher = await knex('teacher')
+            .select('id')
+            .select('email')
+            .select('fullName')
+            .where('email', email)
+            .where('password', password)
+            .first();
+
+        if (!teacher) {
+            return response.status(400).json({ error: "TEACHER NOT FOUND" })
+        }
+
+        return response.json('student')
     }
 
 }

@@ -5,7 +5,7 @@ import api from '../../../services/api';
 
 interface Teachers {
     id: number;
-    firstName: string;
+    name: string;
     email: string;
     verification: boolean;
 }
@@ -39,7 +39,7 @@ export default function AcceptTeacher() {
                     return (
                         <View style={styles.student} key={teacher.id}>
                             <Text style={styles.studentProperty}>Teacher name</Text>
-                            <Text style={styles.studentValue}>{teacher.firstName}</Text>
+                            <Text style={styles.studentValue}>{teacher.name}</Text>
 
                             <Text style={styles.studentProperty}>E-mail</Text>
                             <Text style={styles.studentValue}>{teacher.email}</Text>
