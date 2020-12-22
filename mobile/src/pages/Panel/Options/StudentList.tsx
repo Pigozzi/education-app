@@ -35,7 +35,7 @@ export default function StudentList() {
         api.get('students').then(response => {
             setStudents(response.data)
         })
-    })
+    }, [])
 
     return (
         <View style={styles.container}>

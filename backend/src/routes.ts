@@ -45,7 +45,7 @@ routes.post(
             phone: Joi.string().required().min(6).max(12),
             school_id: Joi.string().min(6).required()
         })
-    },{
+    }, {
         abortEarly: false
     }),
     studentController.create
