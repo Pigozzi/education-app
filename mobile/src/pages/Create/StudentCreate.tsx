@@ -24,9 +24,23 @@ export default function StudentDetails() {
         }
 
         try {
-            await api.post('students', data);
 
-            navigation.navigate('studentLogin');
+            const response = await api.get(`schools/${school_id}`);
+
+            const ifExist = response.data[0].school_id;
+
+            console.log(ifExist);
+
+            // if (ifExist.length <= 5) {
+            //     alert('SCHOOL ID NOT FOUND');
+            //     return;
+            // }
+
+            // await api.post('students', data);
+
+            alert('Created Successfuly')
+
+            // navigation.navigate('studentLogin');
 
         } catch (err) {
             alert('Error to create a new student')

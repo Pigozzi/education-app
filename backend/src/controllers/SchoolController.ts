@@ -8,6 +8,14 @@ class SchoolController {
         return response.json(schools);
     }
 
+    async show(request: Request, response: Response) {
+        const { id } = request.params;
+
+        const school = await knex('schools').select('school_id').where('school_id', id);
+
+        return response.json(school);
+    }
+
     async create(request: Request, response: Response) {
 
         const { school_id, fullName, phone, teacher_id } = request.body;

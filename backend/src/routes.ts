@@ -26,6 +26,7 @@ routes.get('/teachers', teacherController.index);
 routes.post('/teachers', teacherController.create);
 
 routes.get('/schools', schoolController.index);
+routes.get('/schools/:id', schoolController.show);
 routes.post('/schools', schoolController.create);
 
 routes.get('/verification', teacherController.verification);
