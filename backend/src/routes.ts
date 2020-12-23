@@ -7,6 +7,7 @@ import StudentController from './controllers/StudentController';
 import CommentsController from './controllers/CommentsController';
 import SessionController from './controllers/SessionController';
 import ProfileController from './controllers/ProfileController';
+import SchoolController from './controllers/SchoolController';
 
 const routes = Router();
 
@@ -16,12 +17,17 @@ const profileController = new ProfileController();
 const teacherController = new TeacherController();
 const studentController = new StudentController();
 const commentsController = new CommentsController();
+const schoolController = new SchoolController();
 
 routes.post('/sessions', sessionController.createSessionStudent);
 routes.post('/sessionTeacher', sessionController.createSessionTeacher);
 
 routes.get('/teachers', teacherController.index);
 routes.post('/teachers', teacherController.create);
+
+routes.get('/schools', schoolController.index);
+routes.post('/schools', schoolController.create);
+
 routes.get('/verification', teacherController.verification);
 routes.put('/verification', teacherController.accept);
 routes.put('/verification', teacherController.decline);

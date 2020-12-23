@@ -1,18 +1,53 @@
-import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import api from '../../services/api';
 
 import global from '../../styles/global';
 
 export default function SchoolCreate() {
-
     const [school_id, setSchoolId] = useState('');
     const [fullName, setFullName] = useState('');
     const [phone, setPhone] = useState('');
+    const [teacher_id, setTeacherId] = useState('');
 
-    function handleCreateSchool() {
+    const navigation = useNavigation();
 
+    const load = async () => {
+        try {
+            let teacher_id = await AsyncStorage.getItem("teacher_id")
+
+            if (teacher_id !== null) { setTeacherId(teacher_id) }
+
+        } catch (err) {
+            alert(err)
+        }
+    }
+
+    useEffect(() => {
+        load();
+    }, [])
+
+    async function handleCreateSchool() {
+        const data = {
+            school_id,
+            fullName,
+            phone,
+            teacher_id
+        }
+
+        try {
+            await api.post('schools', data);
+
+            alert('School created Successfuly')
+
+            navigation.navigate('teacherPanel');
+        } catch (err) {
+            alert(err)
+        }
     }
 
     return (

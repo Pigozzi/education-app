@@ -5,6 +5,7 @@ import { RectButton, TextInput } from 'react-native-gesture-handler';
 
 import api from '../../services/api';
 import global from '../../styles/global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StudentDetails() {
     const [email, setEmail] = useState('');
@@ -21,6 +22,8 @@ export default function StudentDetails() {
 
         try {
             const response = await api.post('sessionTeacher', data);
+
+            await AsyncStorage.setItem('teacher_id', response.data.id);            
 
             const verification = response.data.verification;
 
