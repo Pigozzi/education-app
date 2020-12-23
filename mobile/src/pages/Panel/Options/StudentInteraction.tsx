@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { Linking, StyleSheet, Text, TextInput, View } from 'react-native';
-import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 import global from '../../../styles/global';
 import api from '../../../services/api';
@@ -68,7 +66,7 @@ export default function TeacherPanel() {
                         format="MMMM D, YYYY"
                         minDate="2020-01-01"
                         confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
+                        cancelBtnText="Cancel"                        
                         customStyles={{ dateInput: { borderWidth: 0 } }}
                         onDateChange={(created_at) => (
                             searchDate(created_at)

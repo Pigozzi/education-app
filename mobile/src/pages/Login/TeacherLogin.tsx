@@ -23,7 +23,9 @@ export default function StudentDetails() {
         try {
             const response = await api.post('sessionTeacher', data);
 
-            await AsyncStorage.setItem('teacher_id', response.data.id);            
+            const teacher_id = response.data.id;
+
+            await AsyncStorage.setItem('teacher_id', JSON.stringify(teacher_id));
 
             const verification = response.data.verification;
 
