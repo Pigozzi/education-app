@@ -11,7 +11,10 @@ class SchoolController {
     async show(request: Request, response: Response) {
         const { id } = request.params;
 
-        const school = await knex('schools').select('school_id').where('school_id', id);
+        const school = await knex('schools')
+            .select('school_id')
+            .where('school_id', id)
+            .first();
 
         return response.json(school);
     }
