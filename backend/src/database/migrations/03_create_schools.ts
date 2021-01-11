@@ -3,12 +3,12 @@ import Knex from 'knex';
 export async function up(knex: Knex) {
     return knex.schema.createTable('schools', table => {
         table.increments('id').primary().notNullable();
-        table.integer('school_id').notNullable();
+        table.integer('school_id').unique().notNullable();
         table.string('fullName').notNullable();
         table.string('phone');
 
-        table.integer('teacher_id');
-        table.foreign('teacher_id').references('id').inTable('teacher');
+        table.integer('administrator_id');
+        table.foreign('administrator_id').references('id').inTable('administrator');
     })
 }
 

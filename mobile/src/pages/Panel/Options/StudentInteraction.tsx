@@ -7,6 +7,7 @@ import api from '../../../services/api';
 import moment from 'moment';
 
 import DatePicker from 'react-native-datepicker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Comment {
     id: number;
@@ -22,14 +23,32 @@ export default function TeacherPanel() {
     const [search, setSearch] = useState('');
     const [created_at, setCreatedAt] = useState(moment().format('MMMM D, YYYY'));
 
+    const [school_id, setSchoolId] = useState('');
+
+    const load = async () => {
+        try {
+            let id = await AsyncStorage.getItem("school_id")
+
+            if (id !== null) { setSchoolId(id) }
+
+        } catch (err) {
+            alert(err)
+        }
+    }
+
     useEffect(() => {
+        load();
 
         setCreatedAt(moment().format('MMMM D, YYYY'))
 
-        api.get('comments').then(response => {
+        api.get('comments', {
+            headers: {
+                Authorization: school_id
+            }
+        }).then(response => {
             setStudents(response.data)
         })
-    }, [])
+    }, [school_id])
 
     function openCall(phone: String) {
         Linking.openURL(`tel:${phone}`)
@@ -66,7 +85,7 @@ export default function TeacherPanel() {
                         format="MMMM D, YYYY"
                         minDate="2020-01-01"
                         confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"                        
+                        cancelBtnText="Cancel"
                         customStyles={{ dateInput: { borderWidth: 0 } }}
                         onDateChange={(created_at) => (
                             searchDate(created_at)

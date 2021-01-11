@@ -12,13 +12,27 @@ const global = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold",
-        color: '#000',
+        color: '#3a393b',
+        // marginBottom: 30,
+    },
+    titleTwo: {
+        fontSize: 20,
+        color: '#8c888f',
+        marginBottom: 40
+    },
+    register: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: '#3a393b',
+        textAlign: 'center',
+        marginBottom: 30,
     },
     change: {
         paddingTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
+        paddingBottom: 3
     },
     buttonChange: {
         fontSize: 14,

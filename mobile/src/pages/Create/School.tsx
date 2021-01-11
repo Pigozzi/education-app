@@ -12,15 +12,17 @@ export default function SchoolCreate() {
     const [school_id, setSchoolId] = useState('');
     const [fullName, setFullName] = useState('');
     const [phone, setPhone] = useState('');
-    const [teacher_id, setTeacherId] = useState('');
+    const [administrator_id, setAdministratorId] = useState('');
 
     const navigation = useNavigation();
 
     const load = async () => {
         try {
-            let teacher_id = await AsyncStorage.getItem("teacher_id")
+            let administrator_id = await AsyncStorage.getItem("administrator_id")
 
-            if (teacher_id !== null) { setTeacherId(teacher_id) }
+            console.log(administrator_id)
+
+            if (administrator_id !== null) { setAdministratorId(administrator_id) }
 
         } catch (err) {
             alert(err)
@@ -36,15 +38,18 @@ export default function SchoolCreate() {
             school_id,
             fullName,
             phone,
-            teacher_id
         }
 
         try {
-            await api.post('schools', data);
+            await api.post('schools', data, {
+                headers: {
+                    Authorization: administrator_id
+                }
+            });
 
             alert('School created Successfuly')
 
-            navigation.navigate('teacherPanel');
+            navigation.navigate('AdministratorPanel');
         } catch (err) {
             alert(err)
         }
@@ -52,7 +57,7 @@ export default function SchoolCreate() {
 
     return (
         <View style={global.container}>
-            <Text style={styles.title}>CREATE NEW SCHOOL</Text>
+            <Text style={styles.title}>REGISTER NEW SCHOOL</Text>
 
             <Text style={global.label}>SCHOOL ID #</Text>
             <TextInput
@@ -79,7 +84,7 @@ export default function SchoolCreate() {
             />
 
             <RectButton style={global.buttonSubmit} onPress={handleCreateSchool}>
-                <Text style={global.buttonTextSubmit}>Continue</Text>
+                <Text style={global.buttonTextSubmit}>Register</Text>
             </RectButton>
         </View>
     )

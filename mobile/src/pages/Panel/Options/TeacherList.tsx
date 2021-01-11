@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
@@ -16,13 +17,32 @@ export default function TeacherList() {
     const [teachers, setTeachers] = useState<Teachers[]>([])
     const [search, setSearch] = useState('');
 
+    const [school_id, setSchoolId] = useState('');
+
     const navigation = useNavigation();
 
+    const load = async () => {
+        try {
+            let id = await AsyncStorage.getItem("school_id")
+
+            if (id !== null) { setSchoolId(id) }
+
+        } catch (err) {
+            alert(err)
+        }
+    }
+
     useEffect(() => {
-        api.get('teachers').then(response => {
+        load();
+
+        api.get('teachers', {
+            headers: {
+                Authorization: school_id
+            }
+        }).then(response => {
             setTeachers(response.data)
         })
-    }, [])
+    }, [school_id])
 
     const filterTeacher = teachers.filter((item) => {
         return item.fullName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
@@ -35,8 +55,6 @@ export default function TeacherList() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                {/* <Text style={styles.titleTwo}>TEACHER LIST</Text> */}
-
                 <Text style={global.label}>SEARCH BY NAME</Text>
                 <TextInput style={global.input} onChangeText={setSearch} />
 
@@ -48,12 +66,12 @@ export default function TeacherList() {
 
                             <Text style={styles.studentProperty}>E-mail</Text>
                             <Text style={styles.studentValue}>{teacher.email}</Text>
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 style={styles.detailsButton}
                                 onPress={() => navigateToDetail(teacher.id)}
                             >
                                 <Text style={styles.detailsButtonText}>Edit</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     )
                 })}

@@ -2,32 +2,31 @@ import { Request, Response } from 'express';
 import moment from 'moment';
 import knex from '../database/connection';
 
-class commentsControler {
+class CommentsController {
     async index(request: Request, response: Response) {
+
+        const school_id = request.headers.authorization;
+
         const comments = await knex('comments')
             .join('students', 'students.student_id', '=', 'comments.student_id')
-            .select([
-                'comments.*',
-                'students.id',
-                'students.fullName',
-                'students.phone'
-            ]).where('comments.created_at', moment().format('MMMM D, YYYY'))
+            .select('*')
+            .where('comments.created_at', moment().format('MMMM D, YYYY'))
+            .where('school_id', school_id);
 
         return response.json(comments);
     }
 
     async search(request: Request, response: Response) {
 
+        const school_id = request.headers.authorization;
+
         const { created_at } = request.params;
 
         const comments = await knex('comments')
             .join('students', 'students.student_id', '=', 'comments.student_id')
-            .select([
-                'comments.*',
-                'students.id',
-                'students.fullName',
-                'students.phone'
-            ]).where('comments.created_at', created_at)
+            .select('*')
+            .where('comments.created_at', created_at)
+            .where('school_id', school_id);
 
         return response.status(200).json(comments);
 
@@ -53,4 +52,4 @@ class commentsControler {
     }
 }
 
-export default commentsControler;
+export default CommentsController;

@@ -12,6 +12,18 @@ class ProfileController {
 
         return response.json(comments)
     }
+
+    async indexAdministrator(request: Request, response: Response) {
+
+        const administrator_id = request.headers.authorization;
+
+        const school_id = await knex('schools')
+            .select('school_id')
+            .where('administrator_id', administrator_id);
+
+        return response.json(school_id);
+
+    }
 }
 
 export default ProfileController;

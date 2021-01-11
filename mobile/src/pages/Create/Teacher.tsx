@@ -7,6 +7,7 @@ import api from '../../services/api';
 import global from '../../styles/global';
 
 export default function TeacherCreate() {
+    const [school_id, setSchoolId] = useState('');
     const [email, setEmail] = useState('');
     const [fullName, setFullName] = useState('');
     const [passwordVerification, setPasswordVerification] = useState('');
@@ -16,12 +17,13 @@ export default function TeacherCreate() {
 
     async function handleSubmit() {
 
-        if(passwordVerification != confirmPassword) {
+        if (passwordVerification != confirmPassword) {
             alert('Password incorrent')
             return;
         }
 
         const data = {
+            school_id,
             email,
             fullName,
             passwordVerification,
@@ -40,16 +42,15 @@ export default function TeacherCreate() {
     return (
         <View style={global.container}>
             <ScrollView>
-                <Text style={global.title}>Sign Up</Text>
+                <Text style={global.register}>Register</Text>
 
-                <View style={global.change}>
-                    <RectButton style={global.buttonChange} onPress={() => navigation.navigate('studentCreate')}>
-                        <Text style={global.buttonInputText}>STUDENT</Text>
-                    </RectButton>
-                    <RectButton style={global.buttonSelected} onPress={() => navigation.navigate('teacherCreate')}>
-                        <Text style={global.buttonInputText}>TEACHER</Text>
-                    </RectButton>
-                </View>
+                <Text style={global.label}>SCHOOL ID #</Text>
+                <TextInput
+                    style={global.input}
+                    value={school_id}
+                    placeholder="Enter Your ID School"
+                    onChangeText={setSchoolId}
+                />
 
                 <Text style={global.label}>TEACHER E-MAIL ADDRESS</Text>
                 <TextInput
@@ -57,13 +58,14 @@ export default function TeacherCreate() {
                     value={email}
                     placeholder="Enter Your E-mail Address"
                     onChangeText={setEmail}
+                    keyboardType='email-address'
                 />
 
-                <Text style={global.label}>FIRST NAME</Text>
+                <Text style={global.label}>FULL NAME</Text>
                 <TextInput
                     style={global.input}
                     value={fullName}
-                    placeholder="Enter Your fullName"
+                    placeholder="Enter Your Full Name"
                     onChangeText={setFullName}
                 />
 
@@ -73,6 +75,7 @@ export default function TeacherCreate() {
                     value={passwordVerification}
                     placeholder="Enter Your Password"
                     onChangeText={setPasswordVerification}
+                    secureTextEntry={true}
                 />
 
                 <Text style={global.label}>CONFIRM PASSWORD</Text>
@@ -81,15 +84,16 @@ export default function TeacherCreate() {
                     value={confirmPassword}
                     placeholder="Confirm Your Password"
                     onChangeText={setConfirmPassword}
+                    secureTextEntry={true}
                 />
 
                 <RectButton style={global.buttonSubmit} onPress={handleSubmit}>
-                    <Text style={global.buttonTextSubmit}>Continue</Text>
+                    <Text style={global.buttonTextSubmit}>Register</Text>
                 </RectButton>
 
                 <View style={global.viewSignIn}>
                     <Text style={global.textSignIn}>
-                        Have an Account?
+                        Have an account?
                 </Text>
                     <RectButton onPress={() => navigation.navigate('teacherLogin')}>
                         <Text style={global.textRed}> Sign In</Text>

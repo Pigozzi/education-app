@@ -5,7 +5,7 @@ export async function up(knex: Knex) {
         table.increments('id').primary().notNullable();
         table.integer('student_id').unique().notNullable();
         table.string('fullName').notNullable();
-        table.integer('phone').notNullable();
+        table.string('phone').notNullable();
 
         table.integer('school_id').notNullable();
         table.foreign('school_id').references('school_id').inTable('schools')

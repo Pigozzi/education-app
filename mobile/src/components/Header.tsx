@@ -19,27 +19,27 @@ export default function Header({ title, showCancel = true }: HeaderProps) {
     return (
         <View style={styles.container}>
             <BorderlessButton onPress={navigation.goBack}>
-                <Feather name='arrow-left' size={24} color='#15B6D6' />
+                <Feather name='arrow-left' size={24} color='#ececec' />
             </BorderlessButton>
 
             <Text style={styles.title}>{title}</Text>
 
             { showCancel ? (
                 <BorderlessButton onPress={handleExitApp}>
-                    <Feather name='x' size={24} color='#FF669D' />
+                    <Feather name='x' size={24} color='#ececec' />
                 </BorderlessButton>
             ) : (
                     <View />
                 )
             }
-        </View>
+        </View> 
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        backgroundColor: '#f9f4fc',
+        backgroundColor: '#E16080',
         borderBottomWidth: 1,
         borderColor: '#dde3f0',
         paddingTop: 40,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        color: '#8FA7B3',
+        color: '#f9f4fc',
         fontSize: 16,
         fontWeight: 'bold'
     }

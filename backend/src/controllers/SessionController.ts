@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 
-import crypto from 'crypto';
-
 class SessionController {
 
     async createSessionStudent(request: Request, response: Response) {
@@ -15,7 +13,7 @@ class SessionController {
             .first();
 
         if (!student) {
-            return response.status(400).json({ error: "STUDENT NOT FOUND" })
+            return response.status(404).json({ error: "STUDENT NOT FOUND" })
         }
 
         return response.json(student)
@@ -28,18 +26,38 @@ class SessionController {
 
         const teacher = await knex('teacher')
             .select('id')
-            .select('email')
             .select('fullName')
+            .select('school_id')
             .select('verification')
             .where('email', email)
             .where('password', password)
             .first();
 
         if (!teacher) {
-            return response.status(400).json({ error: "TEACHER NOT FOUND" })
+            return response.status(404).json({ error: "TEACHER NOT FOUND" })
         }
 
         return response.json(teacher)
+    }
+
+    async createSessionAdministrator(request: Request, response: Response) {
+
+        const { email, password } = request.body;
+
+        const administrator = await knex('administrator')
+            .join('schools', 'schools.administrator_id', '=', 'administrator.id')
+            .select('school_id')
+            .select('administrator.id')
+            .select('administrator.fullName')
+            .where('email', email)
+            .where('password', password)
+            .first();
+
+        if (!administrator) {
+            return response.status(404).json({ error: "ADMINISTRATOR NOT FOUND" })
+        }
+
+        return response.json(administrator)
     }
 
 }

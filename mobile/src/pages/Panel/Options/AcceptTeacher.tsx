@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -11,14 +12,32 @@ interface Teachers {
 }
 
 export default function AcceptTeacher() {
+    const [school_id, setSchoolId] = useState('');
 
     const [teachers, setTeachers] = useState<Teachers[]>([])
 
+    const load = async () => {
+        try {
+            let id = await AsyncStorage.getItem("school_id")
+
+            if (id !== null) { setSchoolId(id) }
+
+        } catch (err) {
+            alert(err)
+        }
+    }
+
     useEffect(() => {
-        api.get('verification').then(response => {
+        load();
+
+        api.get('verification', {
+            headers: {
+                Authorization: school_id
+            }
+        }).then(response => {
             setTeachers(response.data)
         })
-    }, [])
+    }, [school_id])
 
     async function handleAcceptTeacher(teacher: Object) {
         try {

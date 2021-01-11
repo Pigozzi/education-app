@@ -24,8 +24,10 @@ export default function StudentDetails() {
             const response = await api.post('sessionTeacher', data);
 
             const teacher_id = response.data.id;
+            const school_id = response.data.school_id;
 
             await AsyncStorage.setItem('teacher_id', JSON.stringify(teacher_id));
+            await AsyncStorage.setItem('school_id', JSON.stringify(school_id));
 
             const verification = response.data.verification;
 
@@ -43,16 +45,17 @@ export default function StudentDetails() {
 
     return (
         <View style={global.container}>
-            <Text style={global.title}>Sign In</Text>
+            <Text style={global.title}>Hi, Teacher!</Text>
+            <Text style={global.titleTwo}>Sign in to continue</Text>
 
-            <View style={global.change}>
+            {/* <View style={global.change}>
                 <RectButton style={global.buttonChange} onPress={() => navigation.navigate('studentLogin')}>
                     <Text style={global.buttonInputText}>STUDENT</Text>
                 </RectButton>
                 <RectButton style={global.buttonSelected} onPress={() => navigation.navigate('teacherLogin')}>
                     <Text style={global.buttonInputText}>TEACHER</Text>
                 </RectButton>
-            </View>
+            </View> */}
 
             <Text style={global.label}>TEACHER E-MAIL ADDRESS</Text>
             <TextInput
@@ -68,15 +71,16 @@ export default function StudentDetails() {
                 value={password}
                 placeholder="Enter Your Password"
                 onChangeText={setPassword}
+                secureTextEntry={true}
             />
 
             <RectButton style={global.buttonSubmit} onPress={handleTeacherLogin}>
-                <Text style={global.buttonTextSubmit}>Continue</Text>
+                <Text style={global.buttonTextSubmit}>Sign in</Text>
             </RectButton>
 
             <View style={global.viewSignIn}>
                 <Text style={global.textSignIn}>
-                    No Have Account?
+                    No have account?
                 </Text>
                 <RectButton onPress={() => navigation.navigate('teacherCreate')}>
                     <Text style={global.textRed}> Sign Up</Text>

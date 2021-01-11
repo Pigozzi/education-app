@@ -13,32 +13,18 @@ export default function TeacherPanel() {
         navigation.navigate('studentInteractions');
     }
 
-    function handleAcceptTeacher() {
-        navigation.navigate('acceptTeacher')
-    }
-
     function handleStudentList() {
         navigation.navigate('studentList')
     }
 
-    function handleTeacherList() {
-        navigation.navigate('teacherList')
-    }
-
     return (
         <View style={global.container}>
-            <Text style={styles.title}>Panel</Text>
+            <Text style={styles.title}>Welcome, Teacher!</Text>
             <RectButton style={styles.buttonChange} onPress={handleMessages}>
                 <Text style={styles.buttonInputText}>STUDENT INTERACTIONS</Text>
             </RectButton>
-            <RectButton style={styles.buttonChange} onPress={handleAcceptTeacher}>
-                <Text style={styles.buttonInputText}>ACCEPT NEW TEACHER</Text>
-            </RectButton>
             <RectButton style={styles.buttonChange} onPress={handleStudentList}>
                 <Text style={styles.buttonInputText}>STUDENT LIST</Text>
-            </RectButton>
-            <RectButton style={styles.buttonChange} onPress={handleTeacherList}>
-                <Text style={styles.buttonInputText}>TEACHER LIST</Text>
             </RectButton>
         </View>
     )

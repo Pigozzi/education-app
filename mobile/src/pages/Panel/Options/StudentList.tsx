@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Linking, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -17,6 +18,8 @@ export default function StudentList() {
     const [students, setStudents] = useState<Students[]>([])
     const [search, setSearch] = useState('');
 
+    const [school_id, setSchoolId] = useState('');
+
     const navigation = useNavigation();
 
     function navigateToDetail(id: number) {
@@ -31,11 +34,28 @@ export default function StudentList() {
         return item.fullName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
     })
 
+    const load = async () => {
+        try {
+            let id = await AsyncStorage.getItem("school_id")
+
+            if (id !== null) { setSchoolId(id) }
+
+        } catch (err) {
+            alert(err)
+        }
+    }
+
     useEffect(() => {
-        api.get('students').then(response => {
+        load();
+
+        api.get('students', {
+            headers: {
+                Authorization: school_id
+            }
+        }).then(response => {
             setStudents(response.data)
         })
-    }, [])
+    }, [school_id])
 
     return (
         <View style={styles.container}>

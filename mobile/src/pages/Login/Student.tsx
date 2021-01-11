@@ -28,16 +28,17 @@ export default function StudentLogin() {
 
     return (
         <View style={global.container}>
-            <Text style={global.title}>Sign In</Text>
+            <Text style={global.title}>Hi, Student!</Text>
+            <Text style={global.titleTwo}>Sign in to continue</Text>
 
-            <View style={global.change}>
+            {/* <View style={global.change}>
                 <RectButton style={global.buttonSelected} onPress={() => navigation.navigate('studentLogin')}>
                     <Text style={global.buttonInputText}>STUDENT</Text>
                 </RectButton>
                 <RectButton style={global.buttonChange} onPress={() => navigation.navigate('teacherLogin')}>
                     <Text style={global.buttonInputText}>TEACHER</Text>
                 </RectButton>
-            </View>
+            </View> */}
 
             <Text style={global.label}>STUDENT ID #</Text>
             <TextInput
@@ -48,7 +49,7 @@ export default function StudentLogin() {
             />
 
             <RectButton style={global.buttonSubmit} onPress={handleStudentLogin}>
-                <Text style={global.buttonTextSubmit}>Continue</Text>
+                <Text style={global.buttonTextSubmit}>Sign in</Text>
             </RectButton>
 
             <View style={global.viewSignIn}>
