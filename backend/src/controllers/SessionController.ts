@@ -45,10 +45,8 @@ class SessionController {
         const { email, password } = request.body;
 
         const administrator = await knex('administrator')
-            .join('schools', 'schools.administrator_id', '=', 'administrator.id')
-            .select('school_id')
-            .select('administrator.id')
-            .select('administrator.fullName')
+            .select('id')
+            .select('fullName')
             .where('email', email)
             .where('password', password)
             .first();
@@ -57,7 +55,35 @@ class SessionController {
             return response.status(404).json({ error: "ADMINISTRATOR NOT FOUND" })
         }
 
-        return response.json(administrator)
+        const verifySchool = await knex('schools')
+            .select('school_id')
+            .where('administrator_id', administrator.id);
+
+        const id = administrator.id;
+        const fullName = administrator.fullName;
+
+        if (!verifySchool.length) {
+
+            const school_id = "undefined"
+
+            const notSchool = {
+                id,
+                fullName,
+                school_id
+            }
+
+            return response.status(200).json(notSchool)
+        }
+
+        const school_id = verifySchool[0].school_id;
+
+        const createSession = {
+            id,
+            fullName,
+            school_id
+        }
+
+        return response.status(200).json(createSession)
     }
 
 }

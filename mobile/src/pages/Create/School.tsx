@@ -20,8 +20,6 @@ export default function SchoolCreate() {
         try {
             let administrator_id = await AsyncStorage.getItem("administrator_id")
 
-            console.log(administrator_id)
-
             if (administrator_id !== null) { setAdministratorId(administrator_id) }
 
         } catch (err) {

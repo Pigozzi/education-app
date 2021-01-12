@@ -24,14 +24,15 @@ export default function StudentDetails() {
             const response = await api.post('sessionAdministrator', data);
 
             const administrator_id = response.data.id;
-            const school_id = response.data.school_id;
             const fullName = response.data.fullName;
 
             await AsyncStorage.setItem('administrator_id', JSON.stringify(administrator_id));
-            await AsyncStorage.setItem('school_id', JSON.stringify(school_id));
             await AsyncStorage.setItem('fullName', fullName);
 
-            navigation.navigate('AdministratorPanel');
+            const school_id = response.data.school_id;
+            await AsyncStorage.setItem('school_id', JSON.stringify(school_id));
+
+            school_id === 'undefined' ? navigation.navigate('SchoolCreate') : navigation.navigate('AdministratorPanel')
 
         } catch (err) {
             alert('Email or password invalid');
